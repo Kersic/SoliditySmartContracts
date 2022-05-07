@@ -1,2 +1,2 @@
-# EthereumSmartContractsWithSolidity
+# SoliditySmartContracts
 Udemy courses
