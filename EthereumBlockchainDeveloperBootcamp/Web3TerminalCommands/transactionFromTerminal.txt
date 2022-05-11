@@ -1,0 +1,71 @@
+---------------------------------------------
+// Sending transaction form terminal with web3 
+// or from browser console after installing web3.js-browser and adding: <script src="node_modules/web3.js-browser/build/web3.js"> </script>
+
+let web3 = require("web3")
+
+//connect with Ganache
+let web3Provider = new web3(new web3.providers.HttpProvider("http://127.0.0.1:7545"));
+
+//get balance for wallet
+web3Provider.eth.getBalance("0xA5411A75948DC9B86cDC1B8411E4006Dd86DC60b").then(console.log)
+
+//make transaction
+web3Provider.eth.sendTransaction({from: "0xA5411A75948DC9B86cDC1B8411E4006Dd86DC60b", to: "0xFCdc9428591D10F14ls
+
+---------------------------------------------
+// deploy smart contract form remix to Ganache
+
+//in Remix -> Deploy and run transaction tab -> Environment -> set web3 Provider -> Deploy
+
+//get function signature with web3
+web3.utils.sha3("setValue()").substr(0, 10)
+
+// call smart contract deployed on Ganache
+// from: accout, to: contract, data: function hash
+web3Provider.eth.call({from: "0xA5411A75948DC9B86cDC1B8411E4006Dd86DC60b", to: "0x85E4178D8aD9D8eBF68c0B3222e98e599eDC51c2", data: "0x3fa4f245"}).then(console.log)
+web3Provider.eth.call({from: "0xA5411A75948DC9B86cDC1B8411E4006Dd86DC60b", to: "0x85E4178D8aD9D8eBF68c0B3222e98e599eDC51c2", data: web3.utils.sha3("value()").substr(0, 10)}).then(console.log)
+
+---------------------------------------------
+//calling contract function with ABI (Application binary interface)
+
+// Remix -> solidity compiler -> copy ABI 
+// Remix -> Deploy tab -> copy contract signature (ADDR)
+// use inlet contract = new web3Provider.eth.Contract(ABI, ADDR)
+
+let contract = new web3Provider.eth.Contract([
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "setValue",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "value",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+], "0x85E4178D8aD9D8eBF68c0B3222e98e599eDC51c2")
+
+contract.methods.value().call().then(console.log)
+contract.methods.setValue(30).send({from: "0xA5411A75948DC9B86cDC1B8411E4006Dd86DC60b"}).then(console.log)
+
+---------------------------------------------
+
+//get accoutns
+web3Provider.eth.getAccounts().then(console.log)
