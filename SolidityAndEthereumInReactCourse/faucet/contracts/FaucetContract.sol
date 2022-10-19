@@ -1,20 +1,45 @@
 pragma solidity >=0.4.22 <0.9.0;
 
-contract Faucet {
+import "./OwnedContract.sol";
+import "./LoggerContract.sol";
+import "./IFaucet.sol";
 
-uint public numOfFunders;
+contract Faucet is Owned, Logger, IFaucet {
+
+    uint public numOfFunders;
     mapping(address => bool) public funders;
     mapping(uint => address) public lutFunders;
 
+    modifier limitWithdraw(uint withdrawAmount) {
+        require(withdrawAmount <= 100000000000000000, "Can not withdraw more than 0.1 ether");
+        _;
+    }
+
     receive() external payable {}
 
-    function addFunds() external payable {
+    function emitLog() public override pure returns(bytes32) {
+        return "Hello World";
+    }
+
+    function addFunds() override external payable {
         address funder = msg.sender;
         if(!funders[funder]) {
             uint index = numOfFunders++;
             funders[funder] = true;
             lutFunders[index] = funder;
         }
+    }
+
+    function withdraw(uint withdrawAmount) override external limitWithdraw(withdrawAmount) {
+        payable(msg.sender).transfer(withdrawAmount);
+    }
+
+    function manage1() external onlyOwner {
+        //some managing stuff that only adim shoud have access to
+    }
+
+    function manage2() external onlyOwner {
+        //some managing stuff that only adim shoud have access to
     }
 
     function getAllFunders() external view returns (address[] memory) {
@@ -40,3 +65,4 @@ uint public numOfFunders;
 
 // instance.getFunderAtIndex(0)
 // instance.getAllFunders()
+// instance.manage1({from: accounts[0]})
