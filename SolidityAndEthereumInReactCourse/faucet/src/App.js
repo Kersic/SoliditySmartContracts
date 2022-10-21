@@ -1,35 +1,66 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.css"
+import Web3 from "web3"
+import detectEthereumProvider from '@metamask/detect-provider'
 
 function App() {
+  const [web3Api, setWeb3Api] = useState({
+    provider: null,
+    web3: null,
+  })
+  const [account, setAccount] = useState(null)
 
   useEffect(() => {
     const loadProvider = async () => {
-      console.log(window.ethereum)
-      console.log(window.web3)
+      let provider = await detectEthereumProvider()
+
+      if (provider) {
+        setWeb3Api({
+          web3: new Web3(provider),
+          provider: provider
+        })
+      } else {
+        console.error('Please install MetaMask!')
+      }  
     }
 
     loadProvider()
   }, [])
 
+  useEffect(() => {
+    const getAccount = async () => {
+      const accounts = await web3Api.web3.eth.getAccounts()
+      setAccount(accounts[0])
+    }
+
+    web3Api.web3 && getAccount()
+  }, [web3Api.web3])
+
   return (
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
-          <div className="balance-view is-size-2">
+          <div className="is-flex is-align-items-center">
+            <span>
+              <strong className="mr-2">Account: </strong>
+            </span>
+            { account ?
+              <span>{account}</span> :
+              <button 
+                className="button is-small"
+                onClick={() =>
+                  web3Api.provider.request({method: "eth_requestAccounts"}
+                )}
+              >
+                Connect Walltet
+              </button>
+            }
+          </div>
+          <div className="balance-view is-size-2 my-4">
             Current Balance: <strong>10</strong> ETH
           </div>
-          <button 
-            className="btn mr-2" 
-            onClick={async () => {
-              const accoutns = await window.ethereum.request({method: "eth_requestAccounts"})
-              console.log(accoutns)
-            }}
-          >
-            Enable Ethereum
-          </button>
-          <button className="btn mr-2">Donate</button>
-          <button className="btn">Withdraw</button>
+          <button className="button is-link mr-2">Donate</button>
+          <button className="button is-primary">Withdraw</button>
         </div>
       </div>
     </>
