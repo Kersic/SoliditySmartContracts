@@ -7,6 +7,7 @@ import {loadContract} from "./Utils/loadContract"
 function App() {
   const [web3Api, setWeb3Api] = useState({
     provider: null,
+    isProviderLoaded: false,
     web3: null,
     contract: null
   })
@@ -33,9 +34,11 @@ function App() {
         setWeb3Api({
           web3: new Web3(provider),
           provider: provider,
-          contract: contract
+          contract: contract,
+          isProviderLoaded: true
         })
       } else {
+        setWeb3Api(api => ({...api, isProviderLoaded: true}))
         console.error('Please install MetaMask!')
       }  
     }
@@ -85,25 +88,47 @@ function App() {
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
-          <div className="is-flex is-align-items-center">
-            <span>
-              <strong className="mr-2">Account: </strong>
-            </span>
-            { account ?
-              <span>{account}</span> :
-              <button 
-                className="button is-small"
-                onClick={() =>
-                  web3Api.provider.request({method: "eth_requestAccounts"}
-                )}
-              >
-                Connect Walltet
-              </button>
-            }
-          </div>
+          { web3Api.isProviderLoaded ?
+            <div className="is-flex is-align-items-center">
+              <span>
+                <strong className="mr-2">Account: </strong>
+              </span>
+              { account ?
+                <span>{account}</span> :
+                !web3Api.provider ?
+                <>
+                    <div className="notification is-warning is-size-7 is-rounded">
+                      Wallet is not detected!{` `}
+                      <a
+                        rel="noreferrer"
+                        target="_blank"
+                        href="https://docs.metamask.io">
+                        Install Metamask
+                      </a>
+                    </div>
+                </> :
+                <button 
+                  className="button is-small"
+                  onClick={() =>
+                    web3Api.provider.request({method: "eth_requestAccounts"}
+                  )}
+                >
+                  Connect Walltet
+                </button>
+              }
+            </div> :
+            <div>Looking for Web3 ...</div>
+          }
+
           <div className="balance-view is-size-2 my-4">
             Current Balance: <strong>{balance}</strong> ETH
           </div>
+
+          { !canConnectToContract &&
+            <i className="is-block">
+              Connect to Ganache
+            </i>
+          }
           <button onClick={addFunds} disabled={!canConnectToContract} className="button is-link mr-2">Donate 1 ETH</button>
           <button onClick={withdraw} disabled={!canConnectToContract} className="button is-primary">Withdraw</button>
         </div>
