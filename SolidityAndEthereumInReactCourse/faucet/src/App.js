@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css"
 import Web3 from "web3"
-import detectEthereumProvider from '@metamask/detect-provider'
 
 function App() {
   const [web3Api, setWeb3Api] = useState({
@@ -12,7 +11,7 @@ function App() {
 
   useEffect(() => {
     const loadProvider = async () => {
-      let provider = await detectEthereumProvider()
+      let provider = await new Web3.providers.HttpProvider('http://localhost:7545')
 
       if (provider) {
         setWeb3Api({
@@ -20,8 +19,8 @@ function App() {
           provider: provider
         })
       } else {
-        console.error('Please install MetaMask!')
-      }  
+        console.error('Web3 provider not found!')
+      }    
     }
 
     loadProvider()
