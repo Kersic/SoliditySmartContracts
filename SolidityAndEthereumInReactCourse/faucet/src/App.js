@@ -3,6 +3,9 @@ import "./App.css"
 import Web3 from "web3"
 import {loadContract} from "./Utils/loadContract"
 
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const INFURA_PROVIDER = "https://goerli.infura.io/v3/"
+
 function App() {
   const [web3Api, setWeb3Api] = useState({
     provider: null,
@@ -28,8 +31,8 @@ function App() {
       //const provider = await new Web3.providers.HttpProvider('http://localhost:7545')
 
       //goerli
-      var provider = new Web3.providers.HttpProvider('https://delicate-virulent-pallet.ethereum-goerli.discover.quiknode.pro/f85263da988e5750a3ed984484031b08af368d3a/');
-      
+      var provider = new HDWalletProvider(process.env.REACT_APP_PRIVATE_KEY, INFURA_PROVIDER+process.env.REACT_APP_INFURA_KEY)
+
       //test if provider works
       var web3 = new Web3(provider);
       web3.eth.getBlockNumber().then((result) => {
@@ -147,3 +150,6 @@ function App() {
 }
 
 export default App;
+
+
+//truffle migrate --network goerli

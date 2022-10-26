@@ -3,7 +3,8 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const privateKey = fs.readFileSync(".secret").toString().trim();
-const QUICKNODE_PROVIDER = "https://delicate-virulent-pallet.ethereum-goerli.discover.quiknode.pro/f85263da988e5750a3ed984484031b08af368d3a/"
+const infuraKey = fs.readFileSync(".infuraKey").toString().trim();
+const INFURA_PROVIDER = "https://goerli.infura.io/v3/"
 
 module.exports = {
   networks: {
@@ -13,10 +14,10 @@ module.exports = {
      network_id: "*",       // Any network (default: none)
     },
     goerli: {
-      provider: () => new HDWalletProvider(privateKey, QUICKNODE_PROVIDER),
+      provider: () => { return new HDWalletProvider(privateKey, INFURA_PROVIDER+infuraKey)},
       network_id: '5', // eslint-disable-line camelcase
       gas: 4465030,
-      gasPrice: 10000000000,
+      gasPrice: 95683766192,
     },
   },
   compilers: {
