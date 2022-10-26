@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import "./App.css"
 import Web3 from "web3"
-import detectEthereumProvider from '@metamask/detect-provider'
 import {loadContract} from "./Utils/loadContract"
 
 function App() {
@@ -19,13 +18,23 @@ function App() {
   const reloadEffect = useCallback(() => reload(!shouldReload), [shouldReload])
 
   const setAccountListener = provider => {
-    provider.on("accountsChanged", _ => window.location.reload())
-    provider.on("chainChanged", _ => window.location.reload())
+    // provider.on("accountsChanged", _ => window.location.reload())
+    // provider.on("chainChanged", _ => window.location.reload())
   }
 
   useEffect(() => {
     const loadProvider = async () => {
-      const provider = await detectEthereumProvider()
+      //ganache
+      //const provider = await new Web3.providers.HttpProvider('http://localhost:7545')
+
+      //goerli
+      var provider = new Web3.providers.HttpProvider('https://delicate-virulent-pallet.ethereum-goerli.discover.quiknode.pro/f85263da988e5750a3ed984484031b08af368d3a/');
+      
+      //test if provider works
+      var web3 = new Web3(provider);
+      web3.eth.getBlockNumber().then((result) => {
+        console.log("Latest Ethereum Block is ",result);
+});
       
       if (provider) {
         const contract = await loadContract("Faucet", provider)
@@ -39,7 +48,7 @@ function App() {
         })
       } else {
         setWeb3Api(api => ({...api, isProviderLoaded: true}))
-        console.error('Please install MetaMask!')
+        console.error('Web3 provider not found!')
       }  
     }
 
