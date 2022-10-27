@@ -4,9 +4,10 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 const fs = require('fs');
 const privateKey = fs.readFileSync(".secret").toString().trim();
 const infuraKey = fs.readFileSync(".infuraKey").toString().trim();
-const INFURA_PROVIDER = "https://goerli.infura.io/v3/"
+const INFURA_PROVIDER = "wss://goerli.infura.io/ws/v3/"
 
 module.exports = {
+  contracts_build_directory: "./public/contracts",
   networks: {
     development: {
      host: "127.0.0.1",     // Localhost (default: none)
@@ -16,8 +17,8 @@ module.exports = {
     goerli: {
       provider: () => { return new HDWalletProvider(privateKey, INFURA_PROVIDER+infuraKey)},
       network_id: '5', // eslint-disable-line camelcase
-      gas: 4465030,
-      gasPrice: 95683766192,
+      networkCheckTimeout: 10000,
+      timeoutBlocks: 200
     },
   },
   compilers: {

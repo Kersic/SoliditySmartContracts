@@ -4,7 +4,7 @@ import Web3 from "web3"
 import {loadContract} from "./Utils/loadContract"
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const INFURA_PROVIDER = "https://goerli.infura.io/v3/"
+const INFURA_PROVIDER = "wss://goerli.infura.io/ws/v3/"
 
 function App() {
   const [web3Api, setWeb3Api] = useState({
@@ -81,7 +81,7 @@ function App() {
     const { contract, web3 } = web3Api
     await contract.addFunds({
       from: account,
-      value: web3.utils.toWei("1", "ether")
+      value: web3.utils.toWei("0.001", "ether")
     })
 
     reloadEffect()
@@ -89,7 +89,7 @@ function App() {
 
   const withdraw = async () => {
     const { contract, web3 } = web3Api
-    const withdrawAmount = web3.utils.toWei("0.1", "ether")
+    const withdrawAmount = web3.utils.toWei("0.001", "ether")
     await contract.withdraw(withdrawAmount, {
       from: account
     })
@@ -141,7 +141,7 @@ function App() {
               Connect to Ganache
             </i>
           }
-          <button onClick={addFunds} disabled={!canConnectToContract} className="button is-link mr-2">Donate 1 ETH</button>
+          <button onClick={addFunds} disabled={!canConnectToContract} className="button is-link mr-2">Donate 0.001 ETH</button>
           <button onClick={withdraw} disabled={!canConnectToContract} className="button is-primary">Withdraw</button>
         </div>
       </div>
