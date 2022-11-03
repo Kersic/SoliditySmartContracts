@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="51a16893-f99a-4c4c-8a28-37429c9823e3" name="Default Changelist" comment="" />
+    <list default="true" id="51a16893-f99a-4c4c-8a28-37429c9823e3" name="Default Changelist" comment="make faucet work on goerli network">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +52,14 @@
       <updated>1652297711815</updated>
       <workItem from="1652297713664" duration="813000" />
     </task>
+    <task id="LOCAL-00001" summary="make faucet work on goerli network">
+      <created>1666902791962</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666902791962</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -65,5 +75,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="make faucet work on goerli network" />
+    <option name="LAST_COMMIT_MESSAGE" value="make faucet work on goerli network" />
   </component>
 </project>
