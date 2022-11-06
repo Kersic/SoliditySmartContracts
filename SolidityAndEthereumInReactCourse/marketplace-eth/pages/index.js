@@ -8,13 +8,10 @@ import BaseLayout from "@components/layout/baseLayout"
 import { getAllCourses } from "content/fetcher"
 
 export default function Home({courses}) {
+
   return (
     <>
       <Hero/>
-      {/* <Breadcrumbs/>
-      <WalletBar/>
-      <EthRates/>
-      <Card/> */}
       <List courses={courses}/>
     </>
   )
