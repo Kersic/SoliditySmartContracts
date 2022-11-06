@@ -6,11 +6,13 @@ import Card from "@components/other/card"
 import List from "@components/course/list"
 import BaseLayout from "@components/layout/baseLayout"
 import { getAllCourses } from "content/fetcher"
+import { useAccount } from "hooks/useAccount"
 
 export default function Home({courses}) {
-
+  const { account } = useAccount()
   return (
     <>
+      {account}
       <Hero/>
       <List courses={courses}/>
     </>
