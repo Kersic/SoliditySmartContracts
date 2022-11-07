@@ -1,10 +1,14 @@
+import { useAccount } from "hooks/useAccount"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useWeb3 } from "providers/web3"
 import Button from "./button"
 
 export default function Navbar() {
 
     const { connect, isLoading, isWeb3Loaded } = useWeb3()
+    const {account} = useAccount()
+    const { pathname } = useRouter()
 
     return (
       <section>
@@ -15,7 +19,7 @@ export default function Navbar() {
               <Link href="/" className="font-medium mr-8 text-gray-500 hover:text-gray-900">
                   Home
               </Link>
-              <Link href="/" className="font-medium mr-8 text-gray-500 hover:text-gray-900">
+              <Link href="/marketplace" className="font-medium mr-8 text-gray-500 hover:text-gray-900">
                   Marketplace
               </Link>
               <Link href="/" className="font-medium mr-8 text-gray-500 hover:text-gray-900">
@@ -33,9 +37,15 @@ export default function Navbar() {
                       Loading...
                   </Button> :
                   isWeb3Loaded ?
+                  account.data ?
+                  <Button
+                    hoverable={false}
+                    className="cursor-default">
+                    Hi there {account.isAdmin && "Admin"}
+                  </Button> :
                   <Button
                     onClick={connect}>
-                      Connect
+                    Connect
                   </Button> :
                   <Button
                     onClick={() => window.open("https://metamask.io/download.html", "_blank")}>
@@ -46,6 +56,13 @@ export default function Navbar() {
             </div>
           </nav>
         </div>
+        { account.data && !pathname.includes("/marketplace") &&
+        <div className="flex justify-end pt-1 sm:px-6 lg:px-8">
+          <div className="text-white bg-indigo-600 rounded-md p-2">
+            {account.data}
+          </div>
+        </div>
+      }
       </section>
     )
   }
