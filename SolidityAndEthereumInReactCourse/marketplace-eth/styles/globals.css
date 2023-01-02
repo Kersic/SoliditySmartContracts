@@ -5,3 +5,7 @@
 .fit {
   min-height: calc(100vh - 88px);
 }
+
+#course-image {
+  height: 100% !important;
+}

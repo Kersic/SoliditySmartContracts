@@ -1,3 +1,6 @@
+import Button from "@components/common/button"
+import Modal from "@components/common/Modal/modal"
+import OrderModal from "@components/common/Modal/orderModal"
 import CourseCard from "@components/course/card"
 import List from "@components/course/list"
 import BaseLayout from "@components/layout/baseLayout"
@@ -12,6 +15,7 @@ import { useState } from "react"
 export default function Marketplace({courses}) {
   const { account } = useAccount()
   const { network } = useNetwork()
+  const [selectedCourse, setSelectedCourse] = useState(null)
 
   return (
     <>
@@ -32,9 +36,24 @@ export default function Marketplace({courses}) {
           <CourseCard
             key={course.id}
             course={course}
+            Footer={() =>
+              <div className="mt-4">
+                <Button
+                  onClick={() => setSelectedCourse(course)}
+                  variant="lightPurple">
+                  Purchase
+                </Button>
+              </div>
+            }
           />
         }
       </List>
+      { selectedCourse &&
+        <OrderModal
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
+        />
+      }
     </>
   )
 }
