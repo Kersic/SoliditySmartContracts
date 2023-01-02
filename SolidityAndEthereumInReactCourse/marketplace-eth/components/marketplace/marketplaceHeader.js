@@ -23,6 +23,6 @@ export default function MarketplaceHeader() {
       <div className="flex flex-row-reverse pb-4 px-4 sm:px-6 lg:px-8">
         <Breadcrumbs items={LINKS} />
       </div>
-    </>z
+    </>
   )
 }
