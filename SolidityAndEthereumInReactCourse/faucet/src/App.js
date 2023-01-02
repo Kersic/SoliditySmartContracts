@@ -28,10 +28,10 @@ function App() {
   useEffect(() => {
     const loadProvider = async () => {
       //ganache
-      //const provider = await new Web3.providers.HttpProvider('http://localhost:7545')
+      const provider = await new Web3.providers.HttpProvider('http://localhost:7545')
 
       //goerli
-      var provider = new HDWalletProvider(process.env.REACT_APP_PRIVATE_KEY, INFURA_PROVIDER+process.env.REACT_APP_INFURA_KEY)
+      //var provider = new HDWalletProvider(process.env.REACT_APP_PRIVATE_KEY, INFURA_PROVIDER+process.env.REACT_APP_INFURA_KEY)
 
       //test if provider works
       var web3 = new Web3(provider);

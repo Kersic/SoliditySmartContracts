@@ -6,12 +6,20 @@ import Card from "@components/other/card"
 import List from "@components/course/list"
 import BaseLayout from "@components/layout/baseLayout"
 import { getAllCourses } from "content/fetcher"
+import CourseCard from "@components/course/card"
 
 export default function Home({courses}) {
   return (
     <>
       <Hero/>
-      <List courses={courses}/>
+      <List courses={courses}>
+        {course =>
+          <CourseCard
+            key={course.id}
+            course={course}
+          />
+        }
+      </List>
     </>
   )
 }

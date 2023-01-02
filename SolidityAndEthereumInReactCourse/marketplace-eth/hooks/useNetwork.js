@@ -11,6 +11,8 @@ const NETWORKS = {
     1337: "Ganache",
   }
 
+const targetNetwork = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN_ID]
+
 export const useNetwork = () => {
     const {web3, provider} = useWeb3()
     const [chainId, setChainId] = useState()
@@ -34,7 +36,9 @@ export const useNetwork = () => {
 
     return {
       network: {
-        data: chainId
+        data: chainId,
+        target: targetNetwork,
+        isSupported: chainId === targetNetwork,
       }
     }
   }
