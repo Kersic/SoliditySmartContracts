@@ -10,13 +10,14 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
+    "@truffle/contract": "^4.3.33",
     "install": "^0.13.0",
     "next": "13.0.1",
     "npm": "^8.19.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "swr": "^2.0.0",
-    "web3": "^1.7.4"
+    "web3": "^1.5.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
