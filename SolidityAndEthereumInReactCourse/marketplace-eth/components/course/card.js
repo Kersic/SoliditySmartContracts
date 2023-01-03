@@ -13,7 +13,7 @@ export default function CourseCard({course, disabled, Footer}) {
             src={course.coverImage}
             layout="responsive"
             width="200"
-            height="230"
+            height="280"
             alt={course.title}
           />
         </div>
