@@ -7,7 +7,6 @@ export default function ActiveLink({children, linkClass, activeLinkClass, ...pro
     const { pathname } = useRouter()
 
     let className = linkClass || ''
-    console.log(linkClass)
     if (pathname === props.href) {
         className = `${activeLinkClass ? activeLinkClass : "text-indigo-600"} ${className}`
       }
