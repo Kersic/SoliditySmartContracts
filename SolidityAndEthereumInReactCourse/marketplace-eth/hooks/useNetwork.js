@@ -20,6 +20,9 @@ export const useNetwork = () => {
     useEffect(() => {
         const getChainId = async () => {
           const id = await web3.eth.getChainId()
+          // if (!chainId) {
+          //   throw new Error("Cannot retreive network. Please refresh the browser.")
+          // }
           setChainId(NETWORKS[id])
         }
   
