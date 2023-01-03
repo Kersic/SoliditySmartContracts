@@ -11,14 +11,14 @@ import { useWeb3 } from "providers/web3"
 import { useState } from "react"
 
 
-export default function Marketplace({courses}) {
+export default function Marketplace({ courses }) {
   const { web3, contract } = useWeb3()
   const { canPurchaseCourse, account } = useWalletInfo()
   const [selectedCourse, setSelectedCourse] = useState(null)
 
   const purchaseCourse = async order => {
     const hexCourseId = web3.utils.utf8ToHex(selectedCourse.id)
-    
+
     const orderHash = web3.utils.soliditySha3(
       { type: "bytes16", value: hexCourseId },
       { type: "address", value: account.data }
@@ -37,7 +37,7 @@ export default function Marketplace({courses}) {
       const result = await contract.methods.purchaseCourse(
         hexCourseId,
         proof
-      ).send({from: account.data, value})
+      ).send({ from: account.data, value })
       console.log(result)
     } catch {
       console.error("Purchase course: Operation has failed.")
@@ -46,9 +46,7 @@ export default function Marketplace({courses}) {
 
   return (
     <>
-      <div className="py-4">
-        <MarketplaceHeader />
-      </div>
+      <MarketplaceHeader />
       <List
         courses={courses}
       >
@@ -70,7 +68,7 @@ export default function Marketplace({courses}) {
           />
         }
       </List>
-      { selectedCourse &&
+      {selectedCourse &&
         <OrderModal
           course={selectedCourse}
           onSubmit={purchaseCourse}

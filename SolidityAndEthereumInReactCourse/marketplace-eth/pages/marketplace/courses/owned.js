@@ -6,11 +6,13 @@ import OwnedCourseCard from "@components/other/ownedCourseCard"
 import { getAllCourses } from "@content/fetcher"
 import { useAccount } from "hooks/useAccount"
 import { useOwnedCourses } from "hooks/useOwnedCourses"
+import { useRouter } from "next/router"
 
 
-export default function OwnedCourses({courses}) {
-    const { account } = useAccount()
-    const { ownedCourses } = useOwnedCourses(courses, account.data)
+export default function OwnedCourses({ courses }) {
+  const { account } = useAccount()
+  const { ownedCourses } = useOwnedCourses(courses, account.data)
+  const router = useRouter()
 
   return (
     <>
@@ -18,16 +20,18 @@ export default function OwnedCourses({courses}) {
         <MarketplaceHeader />
       </div>
       <section className="grid grid-cols-1">
-        { ownedCourses.swrRes.data?.map(course =>
-            <OwnedCourseCard
-              key={course.id}
-              course={course}
+        {ownedCourses.swrRes.data?.map(course =>
+          <OwnedCourseCard
+            key={course.id}
+            course={course}
+          >
+            <Button
+              onClick={() => router.push(`/courses/${course.slug}`)}
             >
-              <Button>
-                Watch the course
-              </Button>
-            </OwnedCourseCard>
-          )}
+              Watch the course
+            </Button>
+          </OwnedCourseCard>
+        )}
       </section>
     </>
   )
