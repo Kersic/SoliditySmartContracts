@@ -81,3 +81,12 @@ export default function Web3Provider({children}) {
 export function useWeb3() {
   return useContext(Web3Context)
 }
+
+const _isEmpty = data => {
+  return (
+    data == null ||
+    data === "" ||
+    (Array.isArray(data) && data.length === 0) ||
+    (data.constructor === Object && Object.keys(data).length === 0)
+  )
+}

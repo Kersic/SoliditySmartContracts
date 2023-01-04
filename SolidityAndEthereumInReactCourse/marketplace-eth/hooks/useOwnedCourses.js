@@ -39,6 +39,12 @@ export const useOwnedCourses = (courses, account) => {
     const swrRes = handler(courses, account)
 
     return {
-        ownedCourses: { swrRes }
+        ownedCourses: {
+            swrRes,
+            lookup: swrRes.data?.reduce((a, c) => {
+                a[c.id] = c
+                return a
+            }, {}) ?? {}
+        }
     }
 }
