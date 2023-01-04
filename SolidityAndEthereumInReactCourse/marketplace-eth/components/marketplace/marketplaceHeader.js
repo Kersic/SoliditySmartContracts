@@ -1,3 +1,4 @@
+import { useAccount } from "hooks/useAccount";
 import Breadcrumbs from "../common/breadcrumbs";
 import EthRates from "../web3/ethRates";
 import WalletBar from "../web3/walletBar";
@@ -10,12 +11,14 @@ const LINKS = [{
   href: "/marketplace/courses/owned",
   value: "My Courses"
 }, {
-  href: "/marketplace/courses/manage",
-  value: "Manage Courses"
+  href: "/marketplace/courses/managed",
+  value: "Manage Courses",
+  requireAdmin: true
 }]
 
 
 export default function MarketplaceHeader() {
+  const { account } = useAccount()
   return (
     <>
       <div className="pt-4">
@@ -23,7 +26,10 @@ export default function MarketplaceHeader() {
       </div>
       <EthRates />
       <div className="flex flex-row-reverse p-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={LINKS} />
+        <Breadcrumbs
+          isAdmin={account.isAdmin}
+          items={LINKS}
+        />
       </div>
     </>
   )
