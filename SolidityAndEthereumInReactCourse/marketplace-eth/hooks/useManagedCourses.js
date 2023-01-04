@@ -12,10 +12,8 @@ const handler = (account) => {
             const courseCount = await contract.methods.getCourseCount().call()
 
             for (let i = Number(courseCount) - 1; i >= 0; i--) {
-                console.log(i)
                 const courseHash = await contract.methods.getCourseHashAtIndex(i).call()
                 const course = await contract.methods.getCourseByHash(courseHash).call()
-                console.log(course)
                 if (course) {
                     const normalized = normalizeOwnedCourse(web3)({ hash: courseHash }, course)
                     courses.push(normalized)

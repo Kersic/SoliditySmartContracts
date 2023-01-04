@@ -4,6 +4,7 @@ import CourseFilter from "@components/course/filter"
 import BaseLayout from "@components/layout/baseLayout"
 import MarketplaceHeader from "@components/marketplace/marketplaceHeader"
 import ManagedCourseCard from "@components/other/managedCourseCard"
+import { normalizeOwnedCourse } from "@utils/normalize"
 import { useAdmin } from "hooks/useAdmin"
 import { useManagedCourses } from "hooks/useManagedCourses"
 import { useWeb3 } from "providers/web3"
@@ -36,6 +37,7 @@ const VerificationInput = ({ onVerify }) => {
 
 export default function ManageCourses() {
   const [proofedOwnership, setProofedOwnership] = useState({})
+  const [searchedCourse, setSearchedCourse] = useState(null)
   const { web3, contract } = useWeb3()
   const { account } = useAdmin({ redirectTo: "/marketplace" })
   const { managedCourses } = useManagedCourses(account)
@@ -75,6 +77,21 @@ export default function ManageCourses() {
     changeCourseState(courseHash, "deactivateCourse")
   }
 
+  const searchCourse = async hash => {
+    const re = /[0-9A-Fa-f]{6}/g;
+
+    if (hash && hash.length === 66 && re.test(hash)) {
+      const course = await contract.methods.getCourseByHash(hash).call()
+
+      if (course.owner !== "0x0000000000000000000000000000000000000000") {
+        const normalized = normalizeOwnedCourse(web3)({ hash }, course)
+        setSearchedCourse(normalized)
+        return
+      }
+    }
+    setSearchedCourse(null)
+  }
+
   if (!account.isAdmin) {
     return null
   }
@@ -82,7 +99,9 @@ export default function ManageCourses() {
   return (
     <>
       <MarketplaceHeader />
-      <CourseFilter />
+      <CourseFilter
+        onSearchSubmit={searchCourse}
+      />
       <section className="grid grid-cols-1">
         {managedCourses.swrRes.data?.map(course =>
           <ManagedCourseCard
