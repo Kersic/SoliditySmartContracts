@@ -6,7 +6,9 @@ const handler = (courses, account) => {
     const { web3, contract } = useWeb3()
 
     const swrRes = useSWR(() =>
-        (web3 && contract && account) ? `web3/ownedCourses/${account}` : null,
+        (web3 &&
+            contract &&
+            account) ? `web3/ownedCourses/${account}` : null,
         async () => {
             const ownedCourses = []
 

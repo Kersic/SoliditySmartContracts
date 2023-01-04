@@ -14,29 +14,18 @@ const NETWORKS = {
 const targetNetwork = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN_ID]
 
 export const useNetwork = () => {
-    const {web3, provider} = useWeb3()
+    const {web3} = useWeb3()
     const [chainId, setChainId] = useState()
 
     useEffect(() => {
         const getChainId = async () => {
           const id = await web3.eth.getChainId()
-          // if (!chainId) {
-          //   throw new Error("Cannot retreive network. Please refresh the browser.")
-          // }
           setChainId(NETWORKS[id])
         }
   
         web3 && getChainId()
       }, [web3])
-  
-      useEffect(() => {
-        provider &&
-        provider.on("chainChanged", chainId => {
-            setChainId(NETWORKS[parseInt(chainId, 16)])
-          })
-      }, [web3])
     
-
     return {
       network: {
         data: chainId,
