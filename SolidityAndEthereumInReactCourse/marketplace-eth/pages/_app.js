@@ -1,5 +1,8 @@
 import '@styles/globals.css'
 import Web3Provider from 'providers/web3'
+import { ToastContainer } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Noop = ({children}) => <>{children}</>
 
@@ -8,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Web3Provider>
       <Layout>
+        <ToastContainer />
         <Component {...pageProps} />
       </Layout>
     </Web3Provider>

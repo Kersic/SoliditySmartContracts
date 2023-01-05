@@ -8,7 +8,8 @@ import { normalizeOwnedCourse } from "@utils/normalize"
 import { useAdmin } from "hooks/useAdmin"
 import { useManagedCourses } from "hooks/useManagedCourses"
 import { useWeb3 } from "providers/web3"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { withToast } from "@utils/toast"
 
 const VerificationInput = ({ onVerify }) => {
   const [email, setEmail] = useState("")
@@ -47,7 +48,7 @@ export default function ManageCourses() {
     if (!email) {
       return
     }
-    
+
     const emailHash = web3.utils.sha3(email)
     const proofToCheck = web3.utils.soliditySha3(
       { type: "bytes32", value: emailHash },
@@ -65,21 +66,22 @@ export default function ManageCourses() {
 
   const changeCourseState = async (courseHash, method) => {
     try {
-      await contract.methods[method](courseHash)
+      const result = await contract.methods[method](courseHash)
         .send({
           from: account.data
         })
+      return result
     } catch (e) {
-      console.error(e.message)
+      throw new Error(e.message)
     }
   }
 
   const activateCourse = async courseHash => {
-    changeCourseState(courseHash, "activateCourse")
+    withToast(changeCourseState(courseHash, "activateCourse"))
   }
 
   const deactivateCourse = async courseHash => {
-    changeCourseState(courseHash, "deactivateCourse")
+    withToast(changeCourseState(courseHash, "deactivateCourse"))
   }
 
   const searchCourse = async hash => {
@@ -156,7 +158,7 @@ export default function ManageCourses() {
 
       return course.state === filters.state
     })
-    .map(course => renderCard(course) )
+    .map(course => renderCard(course))
 
   return (
     <>
@@ -173,8 +175,8 @@ export default function ManageCourses() {
           </div>
         }
         <h1 className="text-2xl font-bold p-5">All Courses</h1>
-        { filteredCourses }
-        { filteredCourses?.length === 0 &&
+        {filteredCourses}
+        {filteredCourses?.length === 0 &&
           <Message type="warning">
             No courses to display
           </Message>
