@@ -25,6 +25,8 @@ export const useNetwork = () => {
   
         web3 && getChainId()
       }, [web3])
+
+      console.log("Current network: " + chainId + " - Target network: " + targetNetwork)
     
     return {
       network: {

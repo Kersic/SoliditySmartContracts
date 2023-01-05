@@ -1,5 +1,9 @@
 ## Run the development server:
+# development mode (Ganache)
 npm run dev
+# production mode (Goerli)
+npm run build 
+npm start 
 
 ## Deploy smart contracts locally
 truffle migrate
@@ -15,3 +19,5 @@ truffle test
 truffle console --network goerli
 const instance = await CourseMarketplace.deployed()
 await instance.getContractOwner()
+
+## Deploying frontend
