@@ -61,7 +61,6 @@ export default function Marketplace({ courses }) {
       const result = await contract.methods.repurchaseCourse(
         courseHash
       ).send({from: account.data, value})
-      console.log(result)
     } catch {
       console.error("Purchase course: Operation has failed.")
     }
