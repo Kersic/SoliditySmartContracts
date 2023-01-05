@@ -26,7 +26,7 @@ export default function OwnedCourses({ courses }) {
         {!ownedCourses.swrRes.data || ownedCourses?.swrRes.data.length === 0 &&
           <div className="w-1/2">
             <Message type="warning">
-              <div>You don't own any courses</div>
+              <div>You don&apos;t own any courses</div>
               <Link href="/marketplace" className="font-normal hover:underline">
                 <i>Purchase Course</i>
               </Link>
