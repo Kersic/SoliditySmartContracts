@@ -20,4 +20,6 @@ truffle console --network goerli
 const instance = await CourseMarketplace.deployed()
 await instance.getContractOwner()
 
-## Deploying frontend
+## Deployed version
+# https://solidity-smart-contracts-e6qdwsibr-kersic.vercel.app/#
+
