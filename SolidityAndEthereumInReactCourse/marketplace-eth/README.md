@@ -24,11 +24,11 @@ await instance.getContractOwner()
 ### https://solidity-smart-contracts-e6qdwsibr-kersic.vercel.app/#
 
 <div style="display:flex">
-  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-33-51.png" width="400">
-  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2017-59-34.png" width="400">
+  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-33-51.png" width="300">
+  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2017-59-34.png" width="300">
 </div>
 <div style="display:flex">
  
-  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-00-39.png" width="400">
-  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-02-30.png" width="400">
+  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-00-39.png" width="300">
+  <img src="https://github.com/Kersic/SoliditySmartContracts/blob/main/SolidityAndEthereumInReactCourse/marketplace-eth/screenshots/Screenshot%20at%20Jan%2005%2018-02-30.png" width="300">
 </div>
