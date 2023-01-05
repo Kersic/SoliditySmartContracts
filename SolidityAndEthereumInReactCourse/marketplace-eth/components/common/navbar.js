@@ -24,16 +24,16 @@ export default function Navbar() {
                 linkClass="font-medium mr-8">
                 Marketplace
               </ActiveLink>
-              <ActiveLink href="/blogs"
+              {/* <ActiveLink href="/blogs"
                 linkClass="font-medium mr-8">
                 Blogs
-              </ActiveLink>
+              </ActiveLink> */}
             </div>
             <div className="flex justify-center items-center">
-              <ActiveLink href="/wishlist"
+              {/* <ActiveLink href="/wishlist"
                 linkClass="font-medium sm:mr-8 mr-1 text-gray-500 hover:text-gray-900">
                 Wishlist
-              </ActiveLink>
+              </ActiveLink> */}
               {isLoading ?
                 <Button
                   disabled={true}
